@@ -1,0 +1,28 @@
+server:
+  port: 7070
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        namespace:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 是否启动自动识别nacos服务，将nacos服务名作为predicate断言的前缀条件匹配成功会自动StripPrefix=1去掉第一层。代码可读性差不易扩展建议使用routers进行配置
+#      routes:
+#        - id: order_route
+#          uri: lb://order-service #需要转发的地址 lb：使用nacos的本地负载均衡策略（loadbalancer）
+#          predicates: # 断言(就是路由转发要满足的条件)
+#            - Path=/order/**
+#          filters: # 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改
+##            - StripPrefix=1 # 转发之前去掉1层路径
+

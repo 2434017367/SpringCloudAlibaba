@@ -1,0 +1,61 @@
+version: "3.5"
+
+services:
+  cloud-mysql:
+    image: mysql:8.0
+    container_name: cloud-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
+    volumes:
+      - /opt/docker_compose/cloud/mysql/data:/var/lib/mysql
+      - /opt/docker_compose/cloud/mysql/my.cnf:/etc/mysql/my.cnf
+      - /opt/docker_compose/cloud/mysql/initdb:/docker-entrypoint-initdb.d
+      - /opt/docker_compose/cloud/mysql/mysql-files:/var/lib/mysql-files
+
+  cloud-nacos:
+    image: nacos/nacos-server:v2.2.0
+    container_name: cloud-nacos
+    depends_on:
+      - cloud-mysql
+    ports:
+      - 8848:8848
+      - 9848:9848
+      - 9849:9849
+    environment:
+      - JVM_XMS=256m
+      - JVM_XMX=256m
+      - MODE=standalone
+      - PREFER_HOST_MODE=hostname
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=172.19.0.2
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_DB_NAME=cloud_nacos
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=root
+      - NACOS_AUTH_ENABLE=true
+    volumes:
+      - /opt/docker_compose/cloud/nacos/logs:/home/nacos/logs
+
+#  cloud-seata:
+#    image: seataio/seata-server:1.5.2
+#    container_name: cloud-seata
+#    depends_on:
+#      - cloud-nacos
+#      - cloud-mysql
+#    ports:
+#      - 7091:7091
+#      - 8091:8091
+#    environment:
+#      - STORE_MODE=db
+#      # 以SEATA_IP作为host注册seata server
+##      - SEATA_IP=
+##      - SEATA_PORT=8091
+#    volumes:
+#      - "/usr/share/zoneinfo/Asia/Shanghai:/etc/localtime"        #设置系统时区
+#      - "/usr/share/zoneinfo/Asia/Shanghai:/etc/timezone"  #设置时区
+#      # 假设我们通过docker cp命令把资源文件拷贝到相对路径`./seata-server/resources`中
+#      # 如有问题，请阅读上面的[注意事项]以及[使用自定义配置文件]
+#      - ./seata/resources/application.yml:/seata-server/resources/application.yml
+

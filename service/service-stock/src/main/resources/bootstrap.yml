@@ -1,0 +1,31 @@
+
+server:
+  port: 7072
+  servlet:
+    context-path: /stock
+
+nacos:
+  server-addr: 127.0.0.1:8848
+  username: nacos
+  password: nacos
+  namespace:
+
+spring:
+  application:
+    name: stock-service
+  cloud:
+    nacos:
+      server-addr: ${nacos.server-addr}
+      username: ${nacos.username}
+      password: ${nacos.password}
+      discovery:
+        namespace: ${nacos.namespace}
+      config:
+        namespace: ${nacos.namespace}
+        file-extension: yml
+        extension-configs:
+          - dataId: database.yml
+            refresh: true
+          - dataId: seata.yml
+            refresh: true
+

@@ -1,0 +1,20 @@
+server:
+  port: 7070
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order_route
+          uri: http://localhost:7071
+          predicates: # 断言(就是路由转发要满足的条件)
+            - Path=/order/**
+          filters: # 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改
+#            - StripPrefix=1 # 转发之前去掉1层路径
+
+
