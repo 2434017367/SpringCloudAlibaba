@@ -1,10 +1,7 @@
 package top.zhy.springcloud.service.order.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.zhy.springcloud.service.order.config.Test1Config;
 
 import java.util.Date;
@@ -37,6 +34,11 @@ public class ShowController {
     @GetMapping("/getDate")
     public Date getDate() {
         return new Date();
+    }
+
+    @GetMapping("/header")
+    public String header(@RequestHeader("zdy") String zdy) {
+        return zdy;
     }
 
 }

@@ -60,7 +60,7 @@ services:
     environment:
       - STORE_MODE=db
       # 以SEATA_IP作为host注册seata server 宿主机ip
-      - SEATA_IP=192.168.125.116
+      - SEATA_IP=192.168.11.86
       - SEATA_PORT=8091
     volumes:
       - "/usr/share/zoneinfo/Asia/Shanghai:/etc/localtime"        #设置系统时区

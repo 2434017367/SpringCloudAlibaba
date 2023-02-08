@@ -26,9 +26,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
         this.save(order);
 
         stockFeignCilent.stock(order.getId(), order.getOrderNum());
-
-        // 报错
-        int i = 1 / 0;
     }
 
 }
