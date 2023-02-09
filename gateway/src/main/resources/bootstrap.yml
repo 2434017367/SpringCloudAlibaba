@@ -27,3 +27,11 @@ spring:
 #            - StripPrefix=1 # 转发之前去掉1层路径
 #            - AddReqHeader=zdy,ddddddd
 
+      globalcors:
+        cors-configurations:
+          '[/**]': # 应许跨域的资源
+            allowedOrigins: "https://top.zenghy.top" # 跨域允许来源
+            allowedMethods:
+              - GET
+              - POST
+
