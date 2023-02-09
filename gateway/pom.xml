@@ -26,12 +26,6 @@
             <groupId>top.zhy.springcloud</groupId>
             <artifactId>nacos</artifactId>
             <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba.cloud</groupId>
-                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
